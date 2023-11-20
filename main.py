@@ -5,9 +5,9 @@ import numpy as np
 
 class Config:
     def __init__(self) -> None:
-        self.history = 100  # how long a thing has to stand still to skip detection
-        self.varThreshold = 30
-        self.minArea = 20  # only area bigger than this value get new id
+        self.history = 30  # how long a thing has to stand still to skip detection
+        self.varThreshold = 50
+        self.minArea = 300  # only area bigger than this value get new id
 
         # mask color region that get accepted
         self.maskMin = 254
@@ -19,7 +19,7 @@ tracker = EuclideanDistTracker()
 # Create config object
 config = Config()
 
-cap = cv2.VideoCapture("intersection.mp4")
+cap = cv2.VideoCapture("tophighway.mp4")
 
 
 # Object detection from Stable camera
@@ -33,7 +33,7 @@ while True:
     height, width, channel = frame.shape
 
     # Extract Region of interest
-    draw = [284, 370, 594, 775]
+    draw = [315, 832, 662, 968]
     roi = frame[draw[0] : draw[1], draw[2] : draw[3]]
 
     # 1. Object Detection

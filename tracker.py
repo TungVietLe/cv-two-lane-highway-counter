@@ -22,11 +22,13 @@ class EuclideanDistTracker:
             # Find out if that object was detected already
             same_object_detected = False
             for id, pt in self.center_points.items():
-                dist = math.hypot(cx - pt[0], cy - pt[1])
+                distx = abs(cx - pt[0])
+                # print(distx)
+                disty = abs(cy - pt[1])
 
-                if dist < 20:
+                if distx < 200 and disty < 80:
                     self.center_points[id] = (cx, cy)
-                    # print(self.center_points)
+                    print(self.center_points)
                     objects_bbs_ids.append([x, y, w, h, id])
                     same_object_detected = True
                     break
