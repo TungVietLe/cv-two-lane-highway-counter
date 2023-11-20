@@ -26,7 +26,7 @@ class EuclideanDistTracker:
                 # print(distx)
                 disty = abs(cy - pt[1])
 
-                if distx < 200 and disty < 80:
+                if distx < 200 and disty < 75:
                     self.center_points[id] = (cx, cy)
                     print(self.center_points)
                     objects_bbs_ids.append([x, y, w, h, id])

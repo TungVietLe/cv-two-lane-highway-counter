@@ -7,7 +7,7 @@ class Config:
     def __init__(self) -> None:
         self.history = 30  # how long a thing has to stand still to skip detection
         self.varThreshold = 50
-        self.minArea = 300  # only area bigger than this value get new id
+        self.minArea = 200  # only area bigger than this value get notice
 
         # mask color region that get accepted
         self.maskMin = 254
@@ -33,7 +33,7 @@ while True:
     height, width, channel = frame.shape
 
     # Extract Region of interest
-    draw = [315, 832, 662, 968]
+    draw = [315, 832, 662, 762]
     roi = frame[draw[0] : draw[1], draw[2] : draw[3]]
 
     # 1. Object Detection
@@ -68,7 +68,7 @@ while True:
     cv2.imshow("roi", roi)
     cv2.imshow("Frame", frame)
     cv2.imshow("Mask", mask)
-    if cv2.waitKey(0) == ord("q"):
+    if cv2.waitKey(40) == ord("q"):
         break
 
 
