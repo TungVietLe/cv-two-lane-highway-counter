@@ -75,6 +75,8 @@ while True:
         (255, 255, 255),
         2,
     )
+
+    # draw roi rect on frame
     cv2.rectangle(frame, (draw[2], draw[0]), (draw[3], draw[1]), (0, 0, 255), 1)
 
     cv2.imshow("roi", roi)
