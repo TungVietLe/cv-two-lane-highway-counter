@@ -5,12 +5,12 @@ import numpy as np
 
 class Config:
     def __init__(self) -> None:
-        self.history = 2000  # how long a thing has to stand still to skip detection
-        self.varThreshold = 40
-        self.minArea = 300  # only area bigger than this value get new id
+        self.history = 100  # how long a thing has to stand still to skip detection
+        self.varThreshold = 30
+        self.minArea = 20  # only area bigger than this value get new id
 
         # mask color region that get accepted
-        self.maskMin = 200
+        self.maskMin = 254
         self.maskMax = 255
 
 
@@ -19,7 +19,7 @@ tracker = EuclideanDistTracker()
 # Create config object
 config = Config()
 
-cap = cv2.VideoCapture("traffic.mp4")
+cap = cv2.VideoCapture("intersection.mp4")
 
 
 # Object detection from Stable camera
@@ -30,11 +30,11 @@ object_detector = cv2.createBackgroundSubtractorMOG2(
 
 while True:
     isWorking, frame = cap.read()
-    frame = cv2.resize(frame, (0, 0), fx=0.75, fy=0.75)
     height, width, channel = frame.shape
 
     # Extract Region of interest
-    roi = frame[500:700, 100:1100]
+    draw = [284, 370, 594, 775]
+    roi = frame[draw[0] : draw[1], draw[2] : draw[3]]
 
     # 1. Object Detection
     mask = object_detector.apply(roi)
@@ -57,7 +57,7 @@ while True:
         cv2.putText(
             frame,
             str(id),
-            (x, y + 500),
+            (x + draw[2], y + draw[0]),
             cv2.FONT_HERSHEY_PLAIN,
             2,
             (255, 0, 0),
@@ -68,9 +68,9 @@ while True:
     cv2.imshow("roi", roi)
     cv2.imshow("Frame", frame)
     cv2.imshow("Mask", mask)
-
-    if cv2.waitKey(30) == ord("q"):
+    if cv2.waitKey(0) == ord("q"):
         break
+
 
 cap.release()
 cv2.destroyAllWindows()
