@@ -60,10 +60,22 @@ while True:
             (x + draw[2], y + draw[0]),
             cv2.FONT_HERSHEY_PLAIN,
             2,
-            (255, 0, 0),
+            (255, 255, 255),
             2,
         )
         cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+    # total ids text
+    cv2.putText(
+        frame,
+        f"Count: {tracker.id_count}",
+        (30, 50),
+        cv2.FONT_HERSHEY_PLAIN,
+        2,
+        (255, 255, 255),
+        2,
+    )
+    cv2.rectangle(frame, (draw[2], draw[0]), (draw[3], draw[1]), (0, 0, 255), 1)
 
     cv2.imshow("roi", roi)
     cv2.imshow("Frame", frame)
