@@ -21,6 +21,15 @@ config = Config()
 
 cap = cv2.VideoCapture("tophighway.mp4")
 
+# Export mp4
+width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)  # float `width`
+height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)  # float `height`
+exporter = cv2.VideoWriter(
+    "export_video_withID.mp4",
+    cv2.VideoWriter_fourcc(*"MP4V"),
+    fps=24,
+    frameSize=(int(width), int(height)),
+)
 
 # Object detection from Stable camera
 object_detector = cv2.createBackgroundSubtractorMOG2(
@@ -82,9 +91,10 @@ while True:
     cv2.imshow("roi", roi)
     cv2.imshow("Frame", frame)
     cv2.imshow("Mask", mask)
+    exporter.write(frame)
     if cv2.waitKey(40) == ord("q"):
         break
 
-
+exporter.release()
 cap.release()
 cv2.destroyAllWindows()
